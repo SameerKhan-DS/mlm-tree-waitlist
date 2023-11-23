@@ -1,0 +1,11 @@
+.node__link {
+  stroke: #65096d !important; 
+  stroke-width: 0.2rem;
+}
+
+.rd3t-label__attributes  {
+  fill: #777 !important;
+  stroke: none !important;
+  font-weight: bolder !important;
+  font-size: smaller !important;
+}

@@ -1,0 +1,122 @@
+{
+  "id": "1",
+  "name": "CEO",
+  "children": [
+    {
+      "id": "2",
+      "name": "Manager 1",
+      "position": "left",
+      "attributes": {
+        "department": "Production"
+      },
+      "children": [
+        {
+          "id": "3",
+          "name": "Foreman 1",
+          "position": "left",
+          "attributes": {
+            "department": "Fabrication"
+          },
+          "children": [
+            {
+              "id": "4",
+              "name": "Workers",
+              "position": "center",
+              "children": [
+                {
+                  "id": "5",
+                  "name": "new worker",
+                  "position": "right"
+                },
+                {
+                  "id": "6",
+                  "name": "new worker 1",
+                  "position": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7",
+          "name": "Foreman 2 text",
+          "position": "right",
+          "attributes": {
+            "department": "Assembly"
+          },
+          "children": [
+            {
+              "id": "8",
+              "name": "Workers",
+              "position": "center"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Manager 2",
+      "position": "left",
+      "attributes": {
+        "department": "Marketing"
+      },
+      "children": [
+        {
+          "id": "10",
+          "name": "Sales Officer 1",
+          "position": "left",
+          "attributes": {
+            "department": "A"
+          },
+          "children": [
+            {
+              "id": "11",
+              "name": "Salespeople",
+              "position": "left",
+              "children": [
+                {
+                  "id": "12",
+                  "name": "new right",
+                  "position": "right"
+                }
+              ]
+            },
+            {
+              "id": "13",
+              "name": "Salespeople",
+              "position": "right"
+            }
+          ]
+        },
+        {
+          "id": "14",
+          "name": "Sales Officer 2",
+          "position": "left",
+          "attributes": {
+            "department": "B"
+          },
+          "children": [
+            {
+              "id": "15",
+              "name": "Salespeople",
+              "position": "center",
+              "children": [
+                {
+                  "id": "16",
+                  "name": "new vertical",
+                  "position": "right"
+                },
+                {
+                  "id": "17",
+                  "name": "old vertical",
+                  "position": "left"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

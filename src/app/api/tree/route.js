@@ -1,12 +1,10 @@
-
 import connectMongoDB from "../../../../utils/mongoose";
 import { NextResponse } from "next/server";
-import NewClientDistributor from '../../../../models/tree'
+import NewClientDistributor from "../../../../models/tree";
 
 export async function POST(req) {
-    try {
-        const { name, position, children } = await req.json();
-        console.log(name,"che");
+  try {
+    const { name, position, children } = await req.json();
     await connectMongoDB();
 
     const newClient = NewClientDistributor.create({
@@ -29,15 +27,15 @@ export async function POST(req) {
 }
 
 export async function GET() {
-    try {
-      await connectMongoDB();
-      const Client = await NewClientDistributor.find();
-      return NextResponse.json({ Client });
-    } catch (error) {
-      console.error("Error fetching topics:", error);
-      return NextResponse.json(
-        { error: "Internal Server Error" },
-        { status: 500 }
-      );
-    }
+  try {
+    await connectMongoDB();
+    const Client = await NewClientDistributor.find();
+    return NextResponse.json({ Client });
+  } catch (error) {
+    console.error("Error fetching topics:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
+}

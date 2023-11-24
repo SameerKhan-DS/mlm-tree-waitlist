@@ -15,7 +15,6 @@ function useClient(callback: () => void) {
 }
 
 const Whitelist = (props: any) => {
-  // console.log(props.nodeId, "nodeIdnodeId");
   const { setIsPopupOpen } = props;
   const __id = props.nodeId;
   const handleCloseModal = () => {
@@ -43,7 +42,6 @@ const Whitelist = (props: any) => {
     2: <ChoosePosition {...{ clientToAdd, __id, setIsPopupOpen }} />,
   };
   const currentComponent: React.ReactNode = addUserSteps[stepNumber];
-  console.log(stepNumber, "stepNumber");
 
   return (
     <Modal isOpen={props.isPopUpOpen} onRequestClose={handleCloseModal}>

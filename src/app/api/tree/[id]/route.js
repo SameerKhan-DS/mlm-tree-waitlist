@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export async function PUT(req, { params }) {
   const { id } = params;
   const { newChildren } = await req.json();
-  console.log(newChildren, "newChildren");
   const updatedChild = {
     name: newChildren.firstName,
     position: newChildren.position,

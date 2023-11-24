@@ -10,7 +10,6 @@ const ChoosePosition = (props: any) => {
       newChildren: props.clientToAdd,
     });
     props.setIsPopupOpen(false);
-    console.log(data, "updated data");
   };
   return (
     <div className="text-center">

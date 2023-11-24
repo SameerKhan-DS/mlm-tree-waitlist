@@ -25,7 +25,6 @@ const WaitList = (props: any) => {
     props?.setStepNumber(2);
     props?.setClientToAdd(user);
   }
-  console.log(usersData, "usersData");
 
   return (
     <div className="flex justify-center">

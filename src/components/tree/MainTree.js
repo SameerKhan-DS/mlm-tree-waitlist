@@ -24,12 +24,9 @@ const renderForeignObjectNode = ({
   toggleNode,
   foreignObjectProps,
 }) => {
-  console.log(nodeDatum, "nodeDatum112");
-  // const [nodeId, setNodeId] = useState("")
 
   const handleAddNewMemberClick = (id) => {
     nodeId = id;
-    console.log(nodeId, "nodeId");
     // You can access the 'id' of the clicked node here
     foreignObjectProps.setIsPopupOpen(true);
     // You can perform any further actions you need with the 'id' value.
@@ -205,7 +202,6 @@ export default function App() {
      <div>
       <button>Increment</button>
      </div>
-      {console.log(foreignObjectProps, "foreignObjectProps")}
       <div style={containerStyles} className="mt-12">
         {treeFromRoot && (
           <Tree

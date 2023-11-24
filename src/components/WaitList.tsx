@@ -1,12 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import api from "../services/api";
 import Moment from "react-moment";
 import RemoveBtn from "./RemoveBtn";
+
 const WaitList = (props: any) => {
   const [usersData, setUsersData] = useState([]);
   const [isContentDelete, setIsContentDelete] = useState(false);
-  
+  const [positionValue, setpositionValue] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,7 +21,11 @@ const WaitList = (props: any) => {
     fetchData();
   }, [isContentDelete]);
 
-  // console.log(usersData._id, "usersData");
+  function ChoosePositionEvent(user: any) {
+    props?.setStepNumber(2);
+    props?.setClientToAdd(user);
+  }
+  console.log(usersData, "usersData");
 
   return (
     <div className="flex justify-center">
@@ -55,7 +60,7 @@ const WaitList = (props: any) => {
             </li>
             {user.status === "active" ? (
               <button
-                onClick={() => props?.setStepNumber(2)}
+                onClick={() => ChoosePositionEvent(user)}
                 className="bg-indigo-500 text-white py-2 px-4 rounded-md"
               >
                 Choose position

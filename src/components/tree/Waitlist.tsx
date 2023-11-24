@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import WaitList from "../WaitList";
 import ChoosePosition from "../addClientSteps/ChoosePosition";
+import api from "@/services/api";
 
 function useClient(callback: () => void) {
   const isClient = React.useRef(false);
@@ -14,6 +15,9 @@ function useClient(callback: () => void) {
 }
 
 const Whitelist = (props: any) => {
+  // console.log(props.nodeId, "nodeIdnodeId");
+  const { setIsPopupOpen } = props;
+  const __id = props.nodeId;
   const handleCloseModal = () => {
     props.setIsPopupOpen(false);
   };
@@ -25,15 +29,18 @@ const Whitelist = (props: any) => {
     };
   });
   const [stepNumber, setStepNumber] = useState<number>(1);
+  const [clientToAdd, setClientToAdd] = useState({});
+
   const addUserSteps: Record<number, React.ReactNode> = {
     1: (
       <WaitList
         setStepNumber={setStepNumber}
         stepNumber={stepNumber}
         setIsPopupOpen={props.setIsPopupOpen}
+        setClientToAdd={setClientToAdd}
       />
     ),
-    2: <ChoosePosition setStepNumber={setStepNumber} />,
+    2: <ChoosePosition {...{ clientToAdd, __id, setIsPopupOpen }} />,
   };
   const currentComponent: React.ReactNode = addUserSteps[stepNumber];
   console.log(stepNumber, "stepNumber");

@@ -5,9 +5,13 @@ import { NextResponse } from "next/server";
 export async function PUT(req, { params }) {
   const { id } = params;
   const { newChildren } = await req.json();
-
+  console.log(newChildren, "newChildren");
+  const updatedChild = {
+    name: newChildren.firstName,
+    position: newChildren.position,
+  };
   // Create a new child document
-  const child = new NewClientDistributor(newChildren);
+  const child = new NewClientDistributor(updatedChild);
   await child.save();
 
   // Find the parent document by ID

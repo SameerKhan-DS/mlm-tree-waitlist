@@ -18,15 +18,16 @@ const Navbar = () => {
           <Link href="/">
             <li>Home</li>
           </Link>
+          
         </div>
         <div className="flex gap-10">
-          <Link href="/dashboard">
-            <li>Dashboard</li>
+          <Link href="/tree">
+            <li>Tree</li>
           </Link>
           {!session ? (
             <>
-              <Link href="/login">
-                <li>Login</li>
+              <Link href="/production">
+                <li>TOP CLASSEMENTS</li>
               </Link>
               <Link href="/register">
                 <li>Register</li>

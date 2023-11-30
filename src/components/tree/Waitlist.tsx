@@ -15,7 +15,7 @@ function useClient(callback: () => void) {
 }
 
 const Whitelist = (props: any) => {
-  const { setIsPopupOpen } = props;
+  const { setIsPopupOpen, setIsRender } = props;
   const __id = props.nodeId;
   const handleCloseModal = () => {
     props.setIsPopupOpen(false);
@@ -39,12 +39,23 @@ const Whitelist = (props: any) => {
         setClientToAdd={setClientToAdd}
       />
     ),
-    2: <ChoosePosition {...{ clientToAdd, __id, setIsPopupOpen }} />,
+    2: (
+      <ChoosePosition {...{ clientToAdd, __id, setIsPopupOpen, setIsRender, setStepNumber }} />
+    ),
   };
+  if (props.isPopUpOpen == false) {
+    setIsRender(1);
+  }
+  console.log(props.isPopUpOpen, stepNumber, "props.isPopUpOpenprops.isPopUpOpen");
   const currentComponent: React.ReactNode = addUserSteps[stepNumber];
-
+  
+ 
   return (
-    <Modal isOpen={props.isPopUpOpen} onRequestClose={handleCloseModal}>
+    <Modal
+      isOpen={props.isPopUpOpen}
+      onRequestClose={handleCloseModal}
+      shouldCloseOnOverlayClick={false}
+    >
       <div className="text-center">{currentComponent}</div>
     </Modal>
   );

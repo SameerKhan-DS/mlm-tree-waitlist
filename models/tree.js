@@ -5,6 +5,9 @@ const employeeSchema = new Schema(
   {
     name: String,
     position: String,
+    city: String,
+    country: String,
+    referralOfTheMonth: { type: Number, default: 0 },
     attributes: {
       type: {
         department: {
@@ -19,8 +22,8 @@ const employeeSchema = new Schema(
   }
 );
 
-const NewClientDistributor =
-  mongoose.models.NewClientDistributor ||
-  mongoose.model("NewClientDistributor", employeeSchema);
+const NewMLMTreeData =
+  mongoose.models.NewMLMTreeData ||
+  mongoose.model("NewMLMTreeData", employeeSchema);
 
-module.exports = NewClientDistributor;
+export default NewMLMTreeData;

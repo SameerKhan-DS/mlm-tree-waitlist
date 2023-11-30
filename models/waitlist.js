@@ -7,8 +7,23 @@ const waitListSchema = new Schema(
     city: String,
     country: String,
     pack: String,
-    email: String,
     status: String,
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    referralCode: {
+      type: String,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: false,
+    },
+    reward: {
+      type: String,
+    },
   },
   {
     timestamps: true,

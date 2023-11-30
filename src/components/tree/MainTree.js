@@ -5,7 +5,7 @@ import { useCenteredTree } from "./helper";
 import dynamic from "next/dynamic";
 import Whitelist from "./Waitlist";
 import api from "@/services/api";
-import {useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 const containerStyles = {
   width: "100vw",
   height: "100vh",
@@ -24,7 +24,6 @@ const renderForeignObjectNode = ({
   toggleNode,
   foreignObjectProps,
 }) => {
-
   const handleAddNewMemberClick = (id) => {
     nodeId = id;
     // You can access the 'id' of the clicked node here
@@ -89,48 +88,50 @@ export default function App() {
    * @param {} data
    * @returns
    */
-  // function modifyDataStructure(data) {
-  //   if (data.children) {
-  //     const leftChildren = [];
-  //     const rightChildren = [];
-  //     const centerChildren = [];
+  function modifyDataStructure(data) {
+    if (data.children) {
+      const leftChildren = [];
+      const rightChildren = [];
+      const centerChildren = [];
 
-  //     data.children.forEach((child, index) => {
-  //       if (child.position === "left") {
-  //         leftChildren.push(child);
-  //       } else if (child.position === "right") {
-  //         rightChildren.push(child);
-  //       } else if (child.position === "center") {
-  //         if (index > 0) {
-  //           // Push "center" element to the same position as the previous element
-  //           const previousPosition = data.children[index - 1].position;
-  //           if (previousPosition === "left") {
-  //             leftChildren.push(child);
-  //           } else if (previousPosition === "right") {
-  //             rightChildren.push(child);
-  //           }
-  //         } else {
-  //           centerChildren.push(child);
-  //         }
-  //       }
-  //     });
+      data.children.forEach((child, index) => {
+        if (child.position === "left") {
+          leftChildren.push(child);
+        } else if (child.position === "right") {
+          rightChildren.push(child);
+        } else if (child.position === "center") {
+          if (index > 0) {
+            // Push "center" element to the same position as the previous element
+            const previousPosition = data.children[index - 1].position;
+            if (previousPosition === "left") {
+              leftChildren.push(child);
+            } else if (previousPosition === "right") {
+              rightChildren.push(child);
+            }
+          } else {
+            centerChildren.push(child);
+          }
+        }
+      });
 
-  //     data.children = leftChildren.concat(centerChildren, rightChildren);
+      data.children = leftChildren.concat(centerChildren, rightChildren);
 
-  //     data.children.forEach((child) => {
-  //       modifyDataStructure(child);
-  //     });
-  //   }
+      data.children.forEach((child) => {
+        modifyDataStructure(child);
+      });
+    }
 
-  //   /**
-  //    * RND for the react-d3-tree and developed a tree for the mlm project. integrate features in the projects as per tree should be required.
-  //    * Add on click feature in the tree and move node on the click
-  //    */
-  //   return data;
-  // }
+    /**
+     * RND for the react-d3-tree and developed a tree for the mlm project. integrate features in the projects as per tree should be required.
+     * Add on click feature in the tree and move node on the click
+     */
+    return data;
+  }
 
   const [dimensions, setDimensions] = useState({ width: 800, height: 400 });
   const [clientData, setClientData] = useState();
+  const [treeFromRoot, setTreeFromRoot] = useState(null);
+  const [isRender, setIsRender] = useState(false);
   // const modifiedData = modifyDataStructure(orgChartJson);
 
   useEffect(() => {
@@ -139,10 +140,10 @@ export default function App() {
       setClientData(data.data.Client);
     };
     getTreeData();
-  }, []);
+  }, [isRender]);
   const createTreeFromRoot = (data, rootId) => {
     const rootNode = data.find((node) => node._id === rootId);
-
+    // console.log(data[1].position, "work on left right");
     if (!rootNode) {
       // Root node not found
       return null;
@@ -189,19 +190,30 @@ export default function App() {
 
   // Example usage:
   // Assuming your data is an array of nodes, and you want to create a tree from the node with _id = "rootNodeId"
-  const treeFromRoot =
-    clientData && createTreeFromRoot(clientData, "655efa1a6187535bf2c627a8");
+  useEffect(() => {
+    // Recalculate the tree whenever clientData changes
+    if (clientData) {
+      const newTree = createTreeFromRoot(
+        clientData,
+        "656870d96063cd1431b513d8"
+      );
+      setTreeFromRoot(newTree);
+    }
+  }, [clientData]);
   // const count = useSelector((state) => state.counter.value);
+  const modifyData = treeFromRoot && modifyDataStructure(treeFromRoot);
+  console.log(treeFromRoot, "modifyData");
   return (
     <>
       <Whitelist
         isPopUpOpen={isPopUpOpen}
         setIsPopupOpen={setIsPopupOpen}
         nodeId={nodeId}
+        setIsRender={setIsRender}
       />
-     <div>
-      <button>Increment</button>
-     </div>
+      <div>
+        <button>Increment</button>
+      </div>
       <div style={containerStyles} className="mt-12">
         {treeFromRoot && (
           <Tree
@@ -217,7 +229,7 @@ export default function App() {
               renderForeignObjectNode({ ...rd3tProps, foreignObjectProps })
             }
             separation={{ siblings: 2, nonSiblings: 2 }}
-            initialDepth={0.02}
+            // initialDepth={5}
             dimensions={dimensions}
             orientation="vertical"
             zoomable={true}

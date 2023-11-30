@@ -24,6 +24,7 @@ const WaitList = (props: any) => {
   function ChoosePositionEvent(user: any) {
     props?.setStepNumber(2);
     props?.setClientToAdd(user);
+    // props?.setStepNumber(1);
   }
 
   return (

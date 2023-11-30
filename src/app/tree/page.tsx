@@ -9,12 +9,9 @@ interface TreePageProps {
 }
 
 const TreePage: React.FC<TreePageProps> = ({ documents }) => {
-
   return (
     <div>
-      <h1>App Tree</h1>
       <Tree />
-      <ProductsPage documents={documents} />
     </div>
   );
 };

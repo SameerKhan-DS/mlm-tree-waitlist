@@ -1,14 +1,17 @@
 import connectMongoDB from "../../../../utils/mongoose";
 import { NextResponse } from "next/server";
-import NewClientDistributor from "../../../../models/tree";
+import NewMLMTreeData from "../../../../models/tree";
 
 export async function POST(req) {
   try {
-    const { name, position, children } = await req.json();
+    const { name, position, children, referralOfTheMonth, city, country } = await req.json();
     await connectMongoDB();
 
-    const newClient = NewClientDistributor.create({
+    const newClient = NewMLMTreeData.create({
       name,
+      city,
+      country,
+      referralOfTheMonth,
       position,
       children,
     });
@@ -29,7 +32,7 @@ export async function POST(req) {
 export async function GET() {
   try {
     await connectMongoDB();
-    const Client = await NewClientDistributor.find();
+    const Client = await NewMLMTreeData.find();
     return NextResponse.json({ Client });
   } catch (error) {
     console.error("Error fetching topics:", error);

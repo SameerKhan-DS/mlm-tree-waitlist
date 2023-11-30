@@ -3,12 +3,22 @@ import React, { useState } from "react";
 
 const ChoosePosition = (props: any) => {
   const [clientPosition, setClientPosition] = useState("left");
-  console.log(props.__id, "choose");
+  const { setIsRender, setStepNumber } = props;
+  // console.log(props.clientToAdd._id, "props.clientToAdd");
   const addClientInTree = async () => {
     props.clientToAdd.position = clientPosition;
     const data = await api.put(`/tree/${props.__id}`, {
       newChildren: props.clientToAdd,
     });
+
+    if (data.statusText == "OK") {
+      setIsRender(true);
+      setStepNumber(1);
+      const waitLists = await api.delete(`waitlist?id=${props.clientToAdd._id}`);
+      if (waitLists.statusText == "OK") {
+        console.log("deleted");
+      }
+    }
     props.setIsPopupOpen(false);
   };
   return (

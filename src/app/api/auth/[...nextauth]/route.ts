@@ -59,7 +59,6 @@ export const authOptions: any = {
           }
           return true;
         } catch (err) {
-          console.log("Error saving user", err);
           return false;
         }
       }

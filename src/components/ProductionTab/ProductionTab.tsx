@@ -11,26 +11,24 @@ const ProductionTab = () => {
     };
     getTreeData();
   }, []);
-  
+
   function addReward(data: any) {
     const sortedDistributorData = data?.sort(
-      (a, b) => b.referralOfTheMonth - a.referralOfTheMonth
+      (a: any, b: any) => b.referralOfTheMonth - a.referralOfTheMonth
     );
+
     const rewardValueArray = [5000, 3000, 2000, 1000, 500];
-  
+
     // Add rewards to the top 5 distributors (or as many as there are)
     const numberOfDistributors = Math.min(sortedDistributorData.length, 5);
     for (let index = 0; index < numberOfDistributors; index++) {
       sortedDistributorData[index].rewardValue = rewardValueArray[index];
     }
-  
+
     return sortedDistributorData;
   }
 
   const modifyList = addReward(distributorData);
-
-  console.log(modifyList, 'modifyList');
-  
 
   return (
     <div className="flex justify-center items-center">
@@ -54,13 +52,11 @@ const ProductionTab = () => {
 
               <li className="flex-1 text-center">
                 <span className=" font-bold text-white">
-                  NUMBER D'INSCRIPTIONS
+                  NUMBER D&apos;INSCRIPTIONS
                 </span>
               </li>
               <li className="flex-1 text-center">
-                <span className=" font-bold text-white">
-                 PRIME
-                </span>
+                <span className=" font-bold text-white">PRIME</span>
               </li>
             </ul>
           </div>
@@ -73,18 +69,22 @@ const ProductionTab = () => {
                 key={index}
               >
                 <li className="flex-1 text-center">
-                  <span className="font-bold text-gray-700">{index + 1}</span>
+                  <span className="font-bold text-gray-700">
+                    {items._id.slice(-6)}
+                  </span>
                 </li>
                 <li className="flex-1 text-center">
-                  <span className="font-bold text-blue-500">{items.name}</span>
+                  <span className="font-bold text-blue-500 uppercase">
+                    {items.name}
+                  </span>
                 </li>
                 <li className="flex-1 text-center">
-                  <span className="text-gray-600">
+                  <span className="text-gray-600 uppercase">
                     {items.city ? items.city : "Mumbai"}
                   </span>
                 </li>
                 <li className="flex-1 text-center">
-                  <span className="text-gray-600">
+                  <span className="text-gray-600 uppercase">
                     {items.country ? items.country : "India"}
                   </span>
                 </li>
@@ -95,9 +95,7 @@ const ProductionTab = () => {
                   </span>
                 </li>
                 <li className="flex-1 text-center">
-                  <span className=" font-bold">
-                    {items.rewardValue}
-                  </span>
+                  <span className=" font-bold">{items.rewardValue}</span>
                 </li>
               </ul>
             ))}

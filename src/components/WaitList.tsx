@@ -24,7 +24,6 @@ const WaitList = (props: any) => {
   function ChoosePositionEvent(user: any) {
     props?.setStepNumber(2);
     props?.setClientToAdd(user);
-    // props?.setStepNumber(1);
   }
 
   return (
@@ -41,7 +40,7 @@ const WaitList = (props: any) => {
               </span>
             </li>
             <li className="flex-1 ml-8">
-              <span>{index}</span>
+              <span>{index + 1}</span>
             </li>
             <li className="flex-1">
               <span>{user.firstName}</span>

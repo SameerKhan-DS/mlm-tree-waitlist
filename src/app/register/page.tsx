@@ -16,14 +16,12 @@ const Register = () => {
   };
 
   const referralCode = searchParams.get("ref");
-  // console.log(referralCode, "referralCode");
 
   const { data: session, status: sessionStatus } = useSession();
-  console.log(session, "sessionSession");
 
   useEffect(() => {
     if (sessionStatus === "authenticated") {
-      router.replace("/dashboard");
+      router.replace("/tree");
     }
   }, [sessionStatus, router]);
 
@@ -45,13 +43,7 @@ const Register = () => {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
   const handleSubmit = async (e: any) => {
-    console.log(formData, "checkFormData");
-
     e.preventDefault();
-
-    // const email = e.target[0].value;
-    // const password = e.target[1].value;
-
     if (!isValidEmail(formData.email)) {
       setError("Email is invalid");
       return;

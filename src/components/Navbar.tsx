@@ -4,44 +4,46 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
-  const { data: session }: any = useSession();
+  const { data: session, status: sessionStatus }: any = useSession();
 
   const handleShareReferralLink = () => {
     const link = `http://localhost:3000/register?ref=${session.user?.email}`;
     navigator.clipboard.writeText(link);
-    console.log("checked the URL", link);
   };
+
   return (
     <div>
-      <ul className="flex justify-between m-10 item-center">
+      <ul className="flex justify-between m-10 items-center">
         <div>
           <Link href="/">
-            <li>Home</li>
+            <li className="cursor-pointer">Home</li>
           </Link>
-          
         </div>
         <div className="flex gap-10">
           <Link href="/tree">
-            <li>Tree</li>
+            <li className="cursor-pointer">Tree</li>
           </Link>
           {!session ? (
             <>
               <Link href="/production">
-                <li>TOP CLASSEMENTS</li>
+                <li className="cursor-pointer">TOP CLASSEMENTS</li>
               </Link>
               <Link href="/register">
-                <li>Register</li>
+                <li className="cursor-pointer">Register</li>
+              </Link>
+              <Link href="/login">
+                <li className="cursor-pointer">Log In</li>
               </Link>
             </>
           ) : (
             <>
-              {session.user?.email}
+              <span className="mr-2">{session.user?.email}</span>
               <li>
                 <button
                   onClick={() => {
                     signOut();
                   }}
-                  className="p-2 px-5 -mt-1 bg-blue-800 rounded-full"
+                  className="p-2 px-5 -mt-1 bg-blue-800 rounded-full cursor-pointer"
                 >
                   Logout
                 </button>
@@ -49,7 +51,10 @@ const Navbar = () => {
             </>
           )}
           {session && (
-            <button onClick={handleShareReferralLink}>
+            <button
+              onClick={handleShareReferralLink}
+              className="cursor-pointer"
+            >
               Generate Referral Link
             </button>
           )}

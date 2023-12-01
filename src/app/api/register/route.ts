@@ -9,16 +9,6 @@ import NewMLMTreeData from "../../../../models/tree";
 export const POST = async (request: any) => {
   const { firstName, lastName, city, country, email, password, referralCode } =
     await request.json();
-  console.log(
-    firstName,
-    lastName,
-    city,
-    country,
-    email,
-    password,
-    referralCode,
-    "email, passwordemail, password"
-  );
 
   await connectMongoDB();
 
@@ -29,9 +19,7 @@ export const POST = async (request: any) => {
   }
 
   const hashedPassword = await bcrypt.hash(password, 5);
-  console.log(existingUser, hashedPassword, "existingUser");
   const referredBy = await NewMLMTreeData.findOne({ _id: referralCode });
-  // console.log(referredBy, "referralCode && referredBy");
 
   const newUser = new NewWaitListWithTime(
     referralCode && referredBy
@@ -44,7 +32,7 @@ export const POST = async (request: any) => {
           password: hashedPassword,
           referralCode: referralCode,
           reward: referralCode ? 10 : null,
-          status: "active"
+          status: "active",
         }
       : {
           firstName,
@@ -53,12 +41,14 @@ export const POST = async (request: any) => {
           email,
           country,
           password: hashedPassword,
-          status: "active"
+          status: "active",
         }
   );
 
   if (referredBy) {
-    const { referralOfTheMonth } = await NewMLMTreeData.findById(referredBy._id);
+    const { referralOfTheMonth } = await NewMLMTreeData.findById(
+      referredBy._id
+    );
     if (!referralOfTheMonth) {
       await NewMLMTreeData.findOneAndUpdate(
         { _id: referredBy._id },

@@ -21,12 +21,6 @@ const Whitelist = (props: any) => {
     props.setIsPopupOpen(false);
   };
 
-  useClient(() => {
-    // Moved the call to Modal.setAppElement() inside of the return statement
-    return () => {
-      Modal.setAppElement("#wait-list");
-    };
-  });
   const [stepNumber, setStepNumber] = useState<number>(1);
   const [clientToAdd, setClientToAdd] = useState({});
 
@@ -40,16 +34,17 @@ const Whitelist = (props: any) => {
       />
     ),
     2: (
-      <ChoosePosition {...{ clientToAdd, __id, setIsPopupOpen, setIsRender, setStepNumber }} />
+      <ChoosePosition
+        {...{ clientToAdd, __id, setIsPopupOpen, setIsRender, setStepNumber }}
+      />
     ),
   };
   if (props.isPopUpOpen == false) {
     setIsRender(1);
   }
-  console.log(props.isPopUpOpen, stepNumber, "props.isPopUpOpenprops.isPopUpOpen");
+
   const currentComponent: React.ReactNode = addUserSteps[stepNumber];
-  
- 
+
   return (
     <Modal
       isOpen={props.isPopUpOpen}

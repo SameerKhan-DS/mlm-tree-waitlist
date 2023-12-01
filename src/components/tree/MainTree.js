@@ -5,6 +5,7 @@ import { useCenteredTree } from "./helper";
 import dynamic from "next/dynamic";
 import Whitelist from "./Waitlist";
 import api from "@/services/api";
+import Modal from "react-modal";
 import { useSelector, useDispatch } from "react-redux";
 const containerStyles = {
   width: "100vw",
@@ -16,7 +17,7 @@ const Tree = dynamic(
   { ssr: false }
 );
 
-// Here we're using `renderCustomNodeElement` render a component that uses
+// Here we're using `renderCustomNodeElement` render a component that uses.
 // both SVG and HTML tags side-by-side.
 let nodeId;
 const renderForeignObjectNode = ({
@@ -27,7 +28,13 @@ const renderForeignObjectNode = ({
   const handleAddNewMemberClick = (id) => {
     nodeId = id;
     // You can access the 'id' of the clicked node here
-    foreignObjectProps.setIsPopupOpen(true);
+    // foreignObjectProps?.setIsPopupOpen(true);
+    setTimeout(() => {
+      const { setispopupopen } = foreignObjectProps;
+      if (setispopupopen) {
+        setispopupopen(true);
+      }
+    }, 1000);
     // You can perform any further actions you need with the 'id' value.
   };
 
@@ -74,13 +81,16 @@ const renderForeignObjectNode = ({
 
 export default function App() {
   const [isPopUpOpen, setIsPopupOpen] = useState(false);
+  useEffect(() => {
+    Modal.setAppElement("#appElement"); // Replace with the actual ID of your root element
+  }, []);
   const nodeSize = { x: 200, y: 200 };
   const foreignObjectProps = {
     width: nodeSize.x,
     height: nodeSize.y,
     x: -100,
     y: -20,
-    setIsPopupOpen,
+    setispopupopen: setIsPopupOpen,
   };
 
   /**
@@ -143,9 +153,7 @@ export default function App() {
   }, [isRender]);
   const createTreeFromRoot = (data, rootId) => {
     const rootNode = data.find((node) => node._id === rootId);
-    // console.log(data[1].position, "work on left right");
     if (!rootNode) {
-      // Root node not found
       return null;
     }
 
@@ -200,42 +208,44 @@ export default function App() {
       setTreeFromRoot(newTree);
     }
   }, [clientData]);
-  // const count = useSelector((state) => state.counter.value);
-  const modifyData = treeFromRoot && modifyDataStructure(treeFromRoot);
-  console.log(treeFromRoot, "modifyData");
+
   return (
     <>
-      <Whitelist
-        isPopUpOpen={isPopUpOpen}
-        setIsPopupOpen={setIsPopupOpen}
-        nodeId={nodeId}
-        setIsRender={setIsRender}
-      />
-      <div>
-        <button>Increment</button>
-      </div>
-      <div style={containerStyles} className="mt-12">
-        {treeFromRoot && (
-          <Tree
-            data={treeFromRoot}
-            onClick={() => console.log("clicked")}
-            nodeSize={nodeSize}
-            rootNodeClassName="node__root"
-            branchNodeClassName="node__branch"
-            leafNodeClassName="node__leaf"
-            pathClassFunc={() => "node__link"}
-            translate={{ x: dimensions.width / 2, y: dimensions.height / 2 }}
-            renderCustomNodeElement={(rd3tProps) =>
-              renderForeignObjectNode({ ...rd3tProps, foreignObjectProps })
-            }
-            separation={{ siblings: 2, nonSiblings: 2 }}
-            // initialDepth={5}
-            dimensions={dimensions}
-            orientation="vertical"
-            zoomable={true}
-            pathFunc="step"
+      <div id="appElement">
+        {isPopUpOpen && (
+          <Whitelist
+            isPopUpOpen={isPopUpOpen}
+            setIsPopupOpen={setIsPopupOpen}
+            nodeId={nodeId}
+            setIsRender={setIsRender}
           />
         )}
+        <div>
+          <button>Increment</button>
+        </div>
+        <div style={containerStyles} className="mt-12">
+          {treeFromRoot && (
+            <Tree
+              data={treeFromRoot}
+              onClick={() => console.log("clicked")}
+              nodeSize={nodeSize}
+              rootNodeClassName="node__root"
+              branchNodeClassName="node__branch"
+              leafNodeClassName="node__leaf"
+              pathClassFunc={() => "node__link"}
+              translate={{ x: dimensions.width / 2, y: dimensions.height / 2 }}
+              renderCustomNodeElement={(rd3tProps) =>
+                renderForeignObjectNode({ ...rd3tProps, foreignObjectProps })
+              }
+              separation={{ siblings: 2, nonSiblings: 2 }}
+              // initialDepth={5}
+              dimensions={dimensions}
+              orientation="vertical"
+              zoomable={true}
+              pathFunc="step"
+            />
+          )}
+        </div>
       </div>
     </>
   );

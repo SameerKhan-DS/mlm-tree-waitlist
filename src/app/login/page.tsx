@@ -9,10 +9,18 @@ const Login = () => {
   const [error, setError] = useState("");
   // const session = useSession();
   const { data: session, status: sessionStatus } = useSession();
+  const [loginCredentials, setLoginCredentials] = useState({
+    email: "",
+    password: "",
+  });
 
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setLoginCredentials((prevState) => ({ ...prevState, [name]: value }));
+  };
   useEffect(() => {
     if (sessionStatus === "authenticated") {
-      router.replace("/dashboard");
+      router.replace("/tree");
     }
   }, [sessionStatus, router]);
 
@@ -23,8 +31,7 @@ const Login = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
+    const { email, password } = loginCredentials;
 
     if (!isValidEmail(email)) {
       setError("Email is invalid");
@@ -44,7 +51,7 @@ const Login = () => {
 
     if (res?.error) {
       setError("Invalid email or password");
-      if (res?.url) router.replace("/dashboard");
+      if (res?.url) router.replace("/tree");
     } else {
       setError("");
     }
@@ -54,6 +61,11 @@ const Login = () => {
     return <h1>Loading...</h1>;
   }
 
+  if (sessionStatus !== "authenticated") {
+    console.log("user not login");
+  } else {
+    console.log("user logged in");
+  }
   return (
     sessionStatus !== "authenticated" && (
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -64,12 +76,18 @@ const Login = () => {
               type="text"
               className="w-full border border-gray-300 text-black rounded px-3 py-2 mb-4 focus:outline-none focus:border-blue-400 focus:text-black"
               placeholder="Email"
+              name="email"
+              value={loginCredentials.email}
+              onChange={handleChange}
               required
             />
             <input
               type="password"
               className="w-full border border-gray-300 text-black rounded px-3 py-2 mb-4 focus:outline-none focus:border-blue-400 focus:text-black"
               placeholder="Password"
+              name="password"
+              value={loginCredentials.password}
+              onChange={handleChange}
               required
             />
             <button

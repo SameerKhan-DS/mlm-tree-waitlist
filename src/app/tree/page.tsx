@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
-import ProductsPage from "./products";
+import React from "react";
 import Tree from "@/components/tree/MainTree";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";

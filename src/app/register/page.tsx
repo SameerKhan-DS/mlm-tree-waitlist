@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-// import { useRouter } from 'next/router';
+
 const Register = () => {
   const [error, setError] = useState("");
   const router = useRouter();
@@ -74,7 +74,7 @@ const Register = () => {
       }
     } catch (error) {
       setError("Error, try again");
-      console.log(error);
+      console.log("error");
     }
   };
 

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Provider } from "react-redux";
 import { getServerSession } from "next-auth";
 // import { SessionProvider } from "next-auth/react";
 import SessionProvider from "../../utils/SessionProvider";

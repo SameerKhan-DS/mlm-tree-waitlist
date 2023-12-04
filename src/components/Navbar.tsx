@@ -23,11 +23,11 @@ const Navbar = () => {
           <Link href="/tree">
             <li className="cursor-pointer">Tree</li>
           </Link>
+          <Link href="/production">
+            <li className="cursor-pointer">TOP CLASSEMENTS</li>
+          </Link>
           {!session ? (
             <>
-              <Link href="/production">
-                <li className="cursor-pointer">TOP CLASSEMENTS</li>
-              </Link>
               <Link href="/register">
                 <li className="cursor-pointer">Register</li>
               </Link>

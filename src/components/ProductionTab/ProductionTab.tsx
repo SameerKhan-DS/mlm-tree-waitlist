@@ -30,6 +30,9 @@ const ProductionTab = () => {
 
   const modifyList = addReward(distributorData);
 
+  console.log(modifyList, 'modifyListmodifyList');
+  
+
   return (
     <div className="flex justify-center items-center">
       <div className="p-8 bg-gray-100 rounded-lg shadow-md w-[1010px]">
@@ -63,7 +66,7 @@ const ProductionTab = () => {
         </div>
         <div className="grid grid-cols-1 ">
           <div>
-            {modifyList?.map((items: any, index: number) => (
+            {distributorData?.map((items: any, index: number) => (
               <ul
                 className="flex items-center bg-white p-4 mb-4 rounded-md shadow-md space-x-8"
                 key={index}

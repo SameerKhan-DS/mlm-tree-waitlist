@@ -25,7 +25,7 @@ const Navbar = () => {
           </Link>
           <Link href="/production">
             <li className="cursor-pointer">TOP CLASSEMENTS</li>
-          </Link>
+          </Link> 
           {!session ? (
             <>
               <Link href="/register">

@@ -11,8 +11,9 @@ const ProductionTab = () => {
     };
     getTreeData();
   }, []);
-
+ 
   function addReward(data: any) {
+    
     const sortedDistributorData = data?.sort(
       (a: any, b: any) => b.referralOfTheMonth - a.referralOfTheMonth
     );
@@ -30,8 +31,7 @@ const ProductionTab = () => {
 
   const modifyList = addReward(distributorData);
 
-  console.log(modifyList, 'modifyListmodifyList');
-  
+  console.log(modifyList, 'modifyListModifyList');
 
   return (
     <div className="flex justify-center items-center">
